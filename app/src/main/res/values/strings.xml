@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Smart Equalizer</string>
+    
+    <!-- Main Activity -->
+    <string name="equalizer_title">Smart Equalizer</string>
+    <string name="preset_voice">Voice</string>
+    <string name="preset_music">Music</string>
+    <string name="preset_custom">Custom</string>
+    <string name="auto_detection">Auto Detection</string>
+    <string name="start_service">Start Service</string>
+    <string name="stop_service">Stop Service</string>
+    
+    <!-- Audio Detection -->
+    <string name="detection_voice">VOICE DETECTED</string>
+    <string name="detection_music">MUSIC DETECTED</string>
+    <string name="detection_unknown">UNKNOWN AUDIO</string>
+    <string name="detection_advertisement">ADVERTISEMENT DETECTED</string>
+    
+    <!-- Service -->
+    <string name="service_notification_title">Smart Equalizer Active</string>
+    <string name="service_notification_text">Processing audio in background</string>
+    <string name="service_channel_id">smart_equalizer_service</string>
+    <string name="service_channel_name">Smart Equalizer Service</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_auto_detection">Auto Detection</string>
+    <string name="settings_auto_detection_summary">Automatically switch presets based on audio content</string>
+    <string name="settings_sensitivity">Detection Sensitivity</string>
+    <string name="settings_sensitivity_summary">Adjust how sensitive the audio detection is</string>
+    
+    <!-- Permissions -->
+    <string name="permission_audio_required">Audio permission is required for the equalizer to work</string>
+    <string name="permission_grant">Grant Permission</string>
+    
+    <!-- Error Messages -->
+    <string name="error_audio_permission">Audio permission denied</string>
+    <string name="error_service_start">Failed to start audio service</string>
+    <string name="error_model_load">Failed to load AI model</string>
+    
+    <!-- Success Messages -->
+    <string name="success_service_started">Audio processing started</string>
+    <string name="success_service_stopped">Audio processing stopped</string>
+    <string name="success_preset_applied">Preset applied successfully</string>
+</resources> 
