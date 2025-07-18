@@ -1,218 +1,271 @@
 # Smart Equalizer Android App
 
-A free Android app inspired by FxSound, featuring a 9-band equalizer with automatic preset switching powered by artificial intelligence. The app improves clarity, volume, and audio balance while running in the background, processing system audio.
+A free Android app inspired by FxSound, featuring a 9-band equalizer with automatic preset switching powered by artificial intelligence.
 
-## Features
+## 🛠️ Tech Stack
 
-### 🎵 9-Band Equalizer
-- Professional-grade 9-band equalizer with frequencies: 60Hz, 170Hz, 310Hz, 600Hz, 1kHz, 3kHz, 6kHz, 12kHz, 14kHz
-- Real-time audio processing and enhancement
-- Smooth visual feedback with Material Design interface
+### **Core Technologies**
+- **Language**: Kotlin 1.9.0
+- **Platform**: Android (API 21+ / Android 5.0+)
+- **Target SDK**: API 34 (Android 14)
+- **Architecture**: MVVM (Model-View-ViewModel)
 
-### 🤖 AI-Powered Audio Classification
-- **TensorFlow Lite + YAMNet** integration for real-time audio analysis
-- Automatic detection of:
-  - **Voice/Speech** - Optimized for conversations, calls, podcasts
-  - **Music** - Enhanced for songs, instrumental music, singing
-  - **Advertisements** - Special handling for commercial content
-  - **Unknown** - Fallback for unclear audio content
+### **AI & Machine Learning**
+- **TensorFlow Lite**: 2.14.0 - AI model inference
+- **YAMNet Model**: Audio classification for voice/music detection
+- **Audio Processing**: Real-time audio analysis and classification
 
-### 🎛️ Smart Preset System
-- **Voice Preset**: Boosts mid frequencies (1kHz-3kHz) for speech clarity
-- **Music Preset**: Balanced enhancement across all frequency bands
-- **Custom Preset**: User-defined equalizer settings
-- **Auto Detection**: Automatically switches presets based on audio content
+### **UI/UX Framework**
+- **Material Design**: 1.11.0 - Modern UI components
+- **AndroidX**: Core Android libraries
+- **ConstraintLayout**: 2.1.4 - Flexible layouts
+- **ViewBinding**: Type-safe view access
 
-### 🔄 Background Processing
-- Foreground service for continuous audio processing
-- Minimal battery impact with optimized processing
-- Seamless integration with system audio
+### **Background Processing**
+- **Kotlin Coroutines**: 1.7.3 - Asynchronous operations
+- **Foreground Service**: Continuous audio processing
+- **Android Audio Effects**: Built-in equalizer functionality
 
-### 🎨 Modern UI/UX
-- Material Design 3 interface
-- Intuitive equalizer visualization
-- Real-time audio detection status
-- Smooth animations and transitions
+### **State Management**
+- **LiveData**: Reactive data streams
+- **ViewModel**: UI state management
+- **Lifecycle Components**: 2.7.0 - Lifecycle-aware components
 
-## Technical Architecture
+### **Build Tools**
+- **Gradle**: 8.1.0 - Build automation
+- **Android Gradle Plugin**: 8.1.0
+- **ProGuard**: Code obfuscation and optimization
 
-### Core Components
-- **MainActivity**: Main UI and user interactions
-- **AudioProcessingService**: Background audio processing service
-- **YAMNetClassifier**: TensorFlow Lite audio classification
-- **MainViewModel**: MVVM architecture for state management
-- **AudioUtils**: Audio processing utilities
+## 🚀 Quick Start
 
-### AI Integration
-```kotlin
-// Example audio classification logic
-val topLabels = getTopLabelsFromYamnet(outputScores)
-var musicScore = 0.0f
-var voiceScore = 0.0f
-
-for (label in topLabels) {
-    when (label.name) {
-        in listOf("Music", "Instrumental music", "Singing") -> musicScore += label.score
-        in listOf("Speech", "Conversation", "Narration, monologue") -> voiceScore += label.score
-    }
-}
-
-val result = when {
-    musicScore > voiceScore -> "MUSIC"
-    voiceScore > musicScore -> "VOICE"
-    else -> "UNKNOWN"
-}
-```
-
-## Build Instructions
-
-### Prerequisites
-- Android Studio Arctic Fox or later
+### **Prerequisites**
+- Android Studio Arctic Fox (2020.3.1) or later
 - Android SDK API 21+ (Android 5.0)
 - Target SDK API 34 (Android 14)
 - Kotlin 1.9.0+
+- Java JDK 17+
+- Git
 
-### Setup
-1. Clone the repository:
+### **Installation**
+
+1. **Clone the repository**
    ```bash
    git clone <repository-url>
    cd Smart-Equalizer
    ```
 
-2. Open the project in Android Studio
+2. **Setup Gradle Wrapper** (if not already done)
+   ```bash
+   # Linux/macOS
+   ./download-gradle-wrapper.sh
+   
+   # Windows
+   download-gradle-wrapper.bat
+   ```
 
-3. Sync Gradle dependencies:
+3. **Open in Android Studio**
+   - Launch Android Studio
+   - Select "Open an existing Android Studio project"
+   - Navigate to the project folder and select it
+
+4. **Sync Gradle dependencies**
    ```bash
    ./gradlew build
    ```
+   Or use Android Studio: File → Sync Project with Gradle Files
 
-4. Build the APK:
+5. **Build and Run**
    ```bash
    # Debug build
    ./gradlew assembleDebug
    
-   # Release build
-   ./gradlew assembleRelease
+   # Install on connected device
+   ./gradlew installDebug
    ```
 
-### Dependencies
-- **TensorFlow Lite**: 2.14.0 - AI model inference
-- **Material Design**: 1.11.0 - Modern UI components
-- **AndroidX Lifecycle**: 2.7.0 - MVVM architecture
-- **Kotlin Coroutines**: 1.7.3 - Asynchronous processing
-- **Android Audio Effects**: Built-in - Equalizer functionality
+### **Running the App**
 
-## Usage
+1. **Connect Android Device**
+   - Enable Developer Options on your Android device
+   - Enable USB Debugging
+   - Connect device via USB
 
-### First Launch
-1. Grant microphone permission when prompted
-2. Select your preferred preset (Voice, Music, or Custom)
-3. Enable auto detection for automatic preset switching
-4. Start the audio processing service
+2. **Install and Run**
+   ```bash
+   # Install debug APK
+   ./gradlew installDebug
+   
+   # Or build and install
+   ./gradlew assembleDebug installDebug
+   ```
 
-### Manual Control
-- Use the equalizer sliders to adjust frequency bands manually
-- Switch between presets using the chip buttons
-- Toggle auto detection on/off
-- Start/stop background processing
+3. **Alternative: Use Android Studio**
+   - Click the "Run" button (green play icon)
+   - Select your device/emulator
+   - App will install and launch automatically
 
-### Background Operation
-- The app runs as a foreground service
-- Audio classification happens every second
-- Presets automatically switch based on detected content
-- Service continues running when app is minimized
+## 📱 App Features
 
-## Project Structure
+### **Core Functionality**
+- **9-Band Equalizer**: 60Hz, 170Hz, 310Hz, 600Hz, 1kHz, 3kHz, 6kHz, 12kHz, 14kHz
+- **AI Audio Classification**: Real-time detection of Voice/Music/Advertisement
+- **Smart Presets**: Voice, Music, and Custom presets
+- **Auto Detection**: Automatic preset switching based on audio content
+- **Background Processing**: Continuous audio analysis service
 
+### **User Interface**
+- Material Design 3 interface
+- Real-time equalizer visualization
+- Audio detection status display
+- Preset selection with chip buttons
+- Service control buttons
+
+## 🔧 Development Setup
+
+### **Project Structure**
 ```
 app/
 ├── src/main/
 │   ├── java/com/smarteq/
-│   │   ├── activities/
-│   │   │   └── MainActivity.kt
-│   │   ├── services/
-│   │   │   └── AudioProcessingService.kt
-│   │   ├── models/
-│   │   │   ├── AudioType.kt
-│   │   │   ├── AudioLabel.kt
-│   │   │   └── EqualizerPreset.kt
-│   │   ├── viewmodels/
-│   │   │   └── MainViewModel.kt
-│   │   ├── ai/
-│   │   │   └── YAMNetClassifier.kt
-│   │   └── utils/
-│   │       └── AudioUtils.kt
-│   ├── res/
-│   │   ├── layout/
-│   │   │   └── activity_main.xml
-│   │   ├── values/
-│   │   │   ├── strings.xml
-│   │   │   ├── colors.xml
-│   │   │   └── themes.xml
-│   │   └── xml/
-│   │       ├── backup_rules.xml
-│   │       └── data_extraction_rules.xml
-│   └── AndroidManifest.xml
-├── build.gradle
-└── proguard-rules.pro
+│   │   ├── activities/          # UI Activities
+│   │   ├── services/           # Background Services
+│   │   ├── models/             # Data Models
+│   │   ├── viewmodels/         # MVVM ViewModels
+│   │   ├── ai/                 # AI/ML Components
+│   │   └── utils/              # Utility Classes
+│   ├── res/                    # Resources
+│   └── AndroidManifest.xml     # App Configuration
+├── build.gradle                # App Dependencies
+└── proguard-rules.pro          # Code Obfuscation
 ```
 
-## Performance Considerations
+### **Key Dependencies**
+```gradle
+// Core Android
+implementation 'androidx.core:core-ktx:1.12.0'
+implementation 'androidx.appcompat:appcompat:1.6.1'
+implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-### Optimization Features
-- Efficient TensorFlow Lite model inference
-- Optimized audio processing pipeline
-- Minimal memory footprint
-- Battery usage optimization
-- Background processing efficiency
+// Material Design
+implementation 'com.google.android.material:material:1.11.0'
 
-### Memory Management
-- Proper resource cleanup in services
-- Efficient audio buffer handling
-- Optimized FFT calculations
-- Smart caching of classification results
+// Lifecycle & MVVM
+implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
 
-## Future Enhancements
+// Coroutines
+implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
 
-### Planned Features
-- **Windows/macOS Desktop Versions**: Cross-platform expansion
-- **Cloud Processing**: Server-side audio analysis
-- **Advanced Presets**: User-defined custom presets
-- **Social Features**: Preset sharing and community
-- **Enhanced AI**: More accurate audio classification
-- **Audio Effects**: Reverb, bass boost, spatial audio
+// TensorFlow Lite
+implementation 'org.tensorflow:tensorflow-lite:2.14.0'
+implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'
+```
 
-### Technical Improvements
-- **Real YAMNet Model**: Integration with actual YAMNet TFLite model
-- **Advanced FFT**: Professional FFT library integration
-- **Audio Session Management**: Better system audio integration
-- **Performance Profiling**: Detailed performance monitoring
-- **Unit Testing**: Comprehensive test coverage
+## 🧪 Testing
 
-## Contributing
+### **Unit Tests**
+```bash
+# Run unit tests
+./gradlew test
+
+# Run with coverage
+./gradlew testDebugUnitTestCoverage
+```
+
+### **Instrumented Tests**
+```bash
+# Run on connected device
+./gradlew connectedAndroidTest
+```
+
+## 📦 Building for Production
+
+### **Release Build**
+```bash
+# Generate signed APK
+./gradlew assembleRelease
+
+# Generate signed AAB (for Play Store)
+./gradlew bundleRelease
+```
+
+## 🔍 Debugging
+
+### **Logs**
+```bash
+# View app logs
+adb logcat | grep "SmartEqualizer"
+
+# View specific tag
+adb logcat -s "AudioProcessing"
+```
+
+### **Common Issues**
+
+1. **Permission Denied**
+   - Ensure microphone permission is granted
+   - Check AndroidManifest.xml permissions
+
+2. **TensorFlow Lite Model Not Found**
+   - The app includes fallback classification
+   - For production, add actual YAMNet model file
+
+3. **Audio Service Not Starting**
+   - Check foreground service permissions
+   - Verify audio session is available
+
+## 📚 API Reference
+
+### **Main Components**
+
+#### **MainActivity**
+```kotlin
+class MainActivity : AppCompatActivity {
+    // Main UI and user interactions
+    // Equalizer controls and preset management
+}
+```
+
+#### **AudioProcessingService**
+```kotlin
+class AudioProcessingService : Service {
+    // Background audio processing
+    // AI classification and preset switching
+}
+```
+
+#### **YAMNetClassifier**
+```kotlin
+class YAMNetClassifier(private val context: Context) {
+    // TensorFlow Lite audio classification
+    // Real-time audio analysis
+}
+```
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## License
+## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+## 🆘 Support
 
-- **FxSound**: Inspiration for the equalizer concept
-- **YAMNet**: Audio classification model
-- **TensorFlow Lite**: AI inference framework
-- **Material Design**: UI/UX guidelines
-- **Android Audio Effects**: System audio processing
+- **Issues**: [GitHub Issues](https://github.com/your-repo/issues)
+- **Documentation**: [Wiki](https://github.com/your-repo/wiki)
+- **Discussions**: [GitHub Discussions](https://github.com/your-repo/discussions)
 
-## Support
+## 📖 Additional Documentation
 
-For issues, questions, or contributions, please open an issue on the project repository.
+- **[SETUP_GUIDE.md](SETUP_GUIDE.md)** - Detailed setup instructions
+- **[PROJECT_BUILD_FLOW.md](PROJECT_BUILD_FLOW.md)** - Development tracking
+- **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** - Project overview
 
 ---
 
-**Note**: This is a demonstration project showcasing AI-powered audio processing capabilities. The YAMNet model integration is simplified for demo purposes. In a production environment, you would integrate the actual YAMNet TensorFlow Lite model. 
+**Note**: This is a demonstration project. For production use, integrate the actual YAMNet TensorFlow Lite model and add comprehensive testing. 
