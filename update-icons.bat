@@ -1,0 +1,86 @@
+@echo off
+echo Updating all icon files to use traditional vector format...
+echo.
+
+echo Creating new icon content...
+set ICON_CONTENT=<?xml version="1.0" encoding="utf-8"?>^
+<vector xmlns:android="http://schemas.android.com/apk/res/android"^
+    android:width="72dp"^
+    android:height="72dp"^
+    android:viewportWidth="72"^
+    android:viewportHeight="72">^
+    ^
+    <!-- Background circle -->^
+    <path^
+        android:fillColor="@color/primary"^
+        android:pathData="M36,36m-36,0a36,36 0,1 1,72 0a36,36 0,1 1,-72 0"/>^
+    ^
+    <!-- Equalizer bars -->^
+    <path^
+        android:fillColor="@color/on_primary"^
+        android:pathData="M12,40 L12,52 L16,52 L16,40 Z"/>^
+    ^
+    <path^
+        android:fillColor="@color/on_primary"^
+        android:pathData="M18,35 L18,52 L22,52 L22,35 Z"/>^
+    ^
+    <path^
+        android:fillColor="@color/on_primary"^
+        android:pathData="M24,30 L24,52 L28,52 L28,30 Z"/>^
+    ^
+    <path^
+        android:fillColor="@color/on_primary"^
+        android:pathData="M30,25 L30,52 L34,52 L34,25 Z"/>^
+    ^
+    <path^
+        android:fillColor="@color/on_primary"^
+        android:pathData="M36,20 L36,52 L40,52 L40,20 Z"/>^
+    ^
+    <path^
+        android:fillColor="@color/on_primary"^
+        android:pathData="M42,28 L42,52 L46,52 L46,28 Z"/>^
+    ^
+    <path^
+        android:fillColor="@color/on_primary"^
+        android:pathData="M48,33 L48,52 L52,52 L52,33 Z"/>^
+    ^
+    <path^
+        android:fillColor="@color/on_primary"^
+        android:pathData="M54,38 L54,52 L58,52 L58,38 Z"/>^
+    ^
+    <path^
+        android:fillColor="@color/on_primary"^
+        android:pathData="M60,43 L60,52 L64,52 L64,43 Z"/>^
+    ^
+</vector>
+
+echo Updating mipmap-hdpi icons...
+echo %ICON_CONTENT% > app\src\main\res\mipmap-hdpi\ic_launcher.xml
+echo %ICON_CONTENT% > app\src\main\res\mipmap-hdpi\ic_launcher_round.xml
+
+echo Updating mipmap-mdpi icons...
+echo %ICON_CONTENT% > app\src\main\res\mipmap-mdpi\ic_launcher.xml
+echo %ICON_CONTENT% > app\src\main\res\mipmap-mdpi\ic_launcher_round.xml
+
+echo Updating mipmap-xhdpi icons...
+echo %ICON_CONTENT% > app\src\main\res\mipmap-xhdpi\ic_launcher.xml
+echo %ICON_CONTENT% > app\src\main\res\mipmap-xhdpi\ic_launcher_round.xml
+
+echo Updating mipmap-xxhdpi icons...
+echo %ICON_CONTENT% > app\src\main\res\mipmap-xxhdpi\ic_launcher.xml
+echo %ICON_CONTENT% > app\src\main\res\mipmap-xxhdpi\ic_launcher_round.xml
+
+echo Updating mipmap-xxxhdpi icons...
+echo %ICON_CONTENT% > app\src\main\res\mipmap-xxxhdpi\ic_launcher.xml
+echo %ICON_CONTENT% > app\src\main\res\mipmap-xxxhdpi\ic_launcher_round.xml
+
+echo.
+echo All icon files updated to use traditional vector format!
+echo This should resolve the API level 26 requirement error.
+echo.
+echo Next steps:
+echo 1. Clean and rebuild the project in Android Studio
+echo 2. Build → Clean Project
+echo 3. Build → Rebuild Project
+echo.
+pause 

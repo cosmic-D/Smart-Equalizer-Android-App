@@ -1,5 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@color/primary"/>
-    <foreground android:drawable="@drawable/ic_launcher_foreground"/>
-</adaptive-icon> 
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    
+    <!-- Background circle -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M48,48m-48,0a48,48 0,1 1,96 0a48,48 0,1 1,-96 0"/>
+    
+    <!-- Equalizer bars -->
+    <path
+        android:fillColor="@color/on_primary"
+        android:pathData="M16,53 L16,69 L22,69 L22,53 Z"/>
+    
+    <path
+        android:fillColor="@color/on_primary"
+        android:pathData="M24,47 L24,69 L30,69 L30,47 Z"/>
+    
+    <path
+        android:fillColor="@color/on_primary"
+        android:pathData="M32,40 L32,69 L38,69 L38,40 Z"/>
+    
+    <path
+        android:fillColor="@color/on_primary"
+        android:pathData="M40,33 L40,69 L46,69 L46,33 Z"/>
+    
+    <path
+        android:fillColor="@color/on_primary"
+        android:pathData="M48,27 L48,69 L54,69 L54,27 Z"/>
+    
+    <path
+        android:fillColor="@color/on_primary"
+        android:pathData="M56,38 L56,69 L62,69 L62,38 Z"/>
+    
+    <path
+        android:fillColor="@color/on_primary"
+        android:pathData="M64,44 L64,69 L70,69 L70,44 Z"/>
+    
+    <path
+        android:fillColor="@color/on_primary"
+        android:pathData="M72,51 L72,69 L78,69 L78,51 Z"/>
+    
+    <path
+        android:fillColor="@color/on_primary"
+        android:pathData="M80,57 L80,69 L86,69 L86,57 Z"/>
+    
+</vector> 
