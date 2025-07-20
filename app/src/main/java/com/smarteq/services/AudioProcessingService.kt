@@ -5,6 +5,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
+import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.media.audiofx.Equalizer
@@ -38,8 +39,8 @@ class AudioProcessingService : Service() {
         private const val SAMPLE_RATE = 16000
         private val BUFFER_SIZE = AudioRecord.getMinBufferSize(
             SAMPLE_RATE,
-            AudioRecord.CHANNEL_IN_MONO,
-            AudioRecord.ENCODING_PCM_16BIT
+            AudioFormat.CHANNEL_IN_MONO,
+            AudioFormat.ENCODING_PCM_16BIT
         )
         private const val AUDIO_SEGMENT_SIZE = 15360 // 960ms at 16kHz
     }
@@ -102,8 +103,8 @@ class AudioProcessingService : Service() {
             audioRecord = AudioRecord(
                 MediaRecorder.AudioSource.MIC,
                 SAMPLE_RATE,
-                AudioRecord.CHANNEL_IN_MONO,
-                AudioRecord.ENCODING_PCM_16BIT,
+                AudioFormat.CHANNEL_IN_MONO,
+                AudioFormat.ENCODING_PCM_16BIT,
                 BUFFER_SIZE
             )
             

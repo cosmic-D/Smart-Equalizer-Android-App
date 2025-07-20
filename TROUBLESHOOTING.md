@@ -292,6 +292,45 @@ Expecting a name / Expecting ')' / Expecting 'in'
    fix-compilation-errors.bat
    ```
 
+### **11. AudioRecord Constants Error**
+
+**Error Message:**
+```
+Unresolved reference: CHANNEL_IN_MONO
+Unresolved reference: ENCODING_PCM_16BIT
+```
+
+**Solution:**
+1. **Add missing import**:
+   ```kotlin
+   import android.media.AudioFormat
+   ```
+
+2. **Fix constant references**:
+   ```kotlin
+   // ❌ Wrong - Old API
+   AudioRecord.CHANNEL_IN_MONO
+   AudioRecord.ENCODING_PCM_16BIT
+   
+   // ✅ Correct - New API
+   AudioFormat.CHANNEL_IN_MONO
+   AudioFormat.ENCODING_PCM_16BIT
+   ```
+
+3. **Why this happens**:
+   - AudioRecord constants were moved to AudioFormat class in newer Android APIs
+   - AudioFormat provides the proper constants for audio configuration
+   - This is the correct Android API usage
+
+4. **Quick Fix**: Run the provided fix script:
+   ```cmd
+   fix-audio-constants.bat
+   ```
+
+5. **Files typically affected**:
+   - `AudioProcessingService.kt`
+   - Any file using AudioRecord configuration
+
 ## 🔧 Advanced Troubleshooting
 
 ### **Reset Android Studio Settings**
