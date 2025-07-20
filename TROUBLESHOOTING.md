@@ -331,6 +331,43 @@ Unresolved reference: ENCODING_PCM_16BIT
    - `AudioProcessingService.kt`
    - Any file using AudioRecord configuration
 
+### **12. ActionBar/Toolbar Conflict Error**
+
+**Error Message:**
+```
+This Activity already has an action bar supplied by the window decor. 
+Do not request Window.FEATURE_SUPPORT_ACTION_BAR and set windowActionBar to false 
+in your theme to use a Toolbar instead.
+```
+
+**Solution:**
+1. **Update theme configuration** in `themes.xml`:
+   ```xml
+   <style name="Theme.SmartEqualizer" parent="Theme.Material3.DayNight">
+       <!-- Disable default ActionBar to use Toolbar instead -->
+       <item name="windowActionBar">false</item>
+       <item name="windowNoTitle">true</item>
+       
+       <!-- ... rest of theme attributes ... -->
+   </style>
+   ```
+
+2. **Why this happens**:
+   - App uses `MaterialToolbar` in layout
+   - Theme was using default ActionBar
+   - Android doesn't allow both simultaneously
+   - `setSupportActionBar()` conflicts with default ActionBar
+
+3. **Quick Fix**: Run the provided fix script:
+   ```cmd
+   fix-actionbar-conflict.bat
+   ```
+
+4. **Files typically affected**:
+   - `app/src/main/res/values/themes.xml`
+   - `app/src/main/res/values-night/themes.xml` (if exists)
+   - Any Activity using `setSupportActionBar()`
+
 ## 🔧 Advanced Troubleshooting
 
 ### **Reset Android Studio Settings**
