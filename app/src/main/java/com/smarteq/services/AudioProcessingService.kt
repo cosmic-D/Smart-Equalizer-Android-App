@@ -186,7 +186,7 @@ class AudioProcessingService : Service() {
         }
         
         for (i in levels.indices) {
-            equalizer?.setBandLevel(i.toShort(), (levels[i] * 100).toShort())
+            equalizer?.setBandLevel(i.toInt().toShort(), (levels[i] * 100).toInt().toShort())
         }
     }
     
