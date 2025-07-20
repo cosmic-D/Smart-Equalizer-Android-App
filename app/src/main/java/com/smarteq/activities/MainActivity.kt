@@ -110,11 +110,24 @@ class MainActivity : AppCompatActivity() {
                 
                 setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                        if (fromUser) {
-                            val band = i
-                            val level = (progress - 750) / 100f // Convert to dB
-                            equalizer?.setBandLevel(band.toInt().toShort(), (level * 100).toInt().toShort())
-                            viewModel.updateCustomPreset(band, level)
+                        if (fromUser && equalizer?.hasControl() == true) {
+                            try {
+                                val band = i
+                                val level = (progress - 750) / 100f // Convert to dB
+                                
+                                // Get valid range for this equalizer
+                                val minLevel = equalizer?.bandLevelRange?.get(0) ?: -1500
+                                val maxLevel = equalizer?.bandLevelRange?.get(1) ?: 1500
+                                
+                                // Convert dB to millibels and clamp to valid range
+                                val levelInMillibels = (level * 100).toInt().coerceIn(minLevel, maxLevel)
+                                equalizer?.setBandLevel(band.toShort(), levelInMillibels.toShort())
+                                viewModel.updateCustomPreset(band, level)
+                                
+                            } catch (e: Exception) {
+                                // Log error but don't crash
+                                e.printStackTrace()
+                            }
                         }
                     }
                     
@@ -137,11 +150,30 @@ class MainActivity : AppCompatActivity() {
             EqualizerPreset.CUSTOM -> viewModel.getCustomPreset()
         }
         
-        for (i in levels.indices) {
-            val level = levels[i]
-            val progress = ((level + 15) * 50).toInt() // Convert dB to progress
-            seekBars[i].progress = progress.coerceIn(0, 1500)
-            equalizer?.setBandLevel(i.toInt().toShort(), (level * 100).toInt().toShort())
+        // Check if equalizer is available
+        if (equalizer?.hasControl() != true) {
+            Snackbar.make(binding.root, "Equalizer not available", Snackbar.LENGTH_SHORT).show()
+            return
+        }
+        
+        val numberOfBands = equalizer?.numberOfBands ?: EQUALIZER_BANDS
+        val minLevel = equalizer?.bandLevelRange?.get(0) ?: -1500
+        val maxLevel = equalizer?.bandLevelRange?.get(1) ?: 1500
+        
+        for (i in 0 until minOf(levels.size, numberOfBands)) {
+            try {
+                val level = levels[i]
+                val progress = ((level + 15) * 50).toInt() // Convert dB to progress
+                seekBars[i].progress = progress.coerceIn(0, 1500)
+                
+                // Convert dB to millibels and clamp to valid range
+                val levelInMillibels = (level * 100).toInt().coerceIn(minLevel, maxLevel)
+                equalizer?.setBandLevel(i.toShort(), levelInMillibels.toShort())
+                
+            } catch (e: Exception) {
+                // Log error but continue with other bands
+                e.printStackTrace()
+            }
         }
         
         Snackbar.make(binding.root, "Preset applied: ${preset.displayName}", Snackbar.LENGTH_SHORT).show()
@@ -231,13 +263,27 @@ class MainActivity : AppCompatActivity() {
     
     private fun setupEqualizer() {
         try {
+            // Initialize equalizer with proper audio session
             equalizer = Equalizer(0, 0)
             equalizer?.enabled = true
             
-            // Set frequency bands - Android Equalizer automatically sets center frequencies
-            // We only need to set the band levels
-            for (i in 0 until EQUALIZER_BANDS) {
-                equalizer?.setBandLevel(i.toInt().toShort(), 0) // Set to 0dB initially
+            // Check if equalizer is properly initialized
+            if (equalizer?.hasControl() == true) {
+                val numberOfBands = equalizer?.numberOfBands ?: EQUALIZER_BANDS
+                val minLevel = equalizer?.bandLevelRange?.get(0) ?: -1500
+                val maxLevel = equalizer?.bandLevelRange?.get(1) ?: 1500
+                
+                // Set initial band levels to 0dB (center)
+                for (i in 0 until numberOfBands) {
+                    try {
+                        equalizer?.setBandLevel(i.toShort(), 0)
+                    } catch (e: Exception) {
+                        // Log error but continue
+                        e.printStackTrace()
+                    }
+                }
+            } else {
+                Snackbar.make(binding.root, "Equalizer not available on this device", Snackbar.LENGTH_LONG).show()
             }
             
         } catch (e: Exception) {
