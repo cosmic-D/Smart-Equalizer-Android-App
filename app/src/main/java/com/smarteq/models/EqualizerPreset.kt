@@ -1,6 +1,6 @@
 package com.smarteq.models
 
-enum class EqualizerPreset(val name: String) {
+enum class EqualizerPreset(val displayName: String) {
     VOICE("Voice"),
     MUSIC("Music"),
     CUSTOM("Custom");

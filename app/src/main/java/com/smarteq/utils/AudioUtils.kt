@@ -92,21 +92,22 @@ object AudioUtils {
         val energies = FloatArray(bandFrequencies.size)
         val fft = performFFT(audioData)
         
-        for ((bandIndex, (lowFreq, highFreq)) in bandFrequencies.withIndex()) {
+        for (i in bandFrequencies.indices) {
+            val (lowFreq, highFreq) = bandFrequencies[i]
             var energy = 0.0f
             
             val lowBin = (lowFreq * fft.size / 2 / 16000).toInt()
             val highBin = (highFreq * fft.size / 2 / 16000).toInt()
             
-            for (i in lowBin..highBin) {
-                if (i < fft.size / 2) {
-                    val real = fft[i * 2]
-                    val imag = fft[i * 2 + 1]
+            for (j in lowBin..highBin) {
+                if (j < fft.size / 2) {
+                    val real = fft[j * 2]
+                    val imag = fft[j * 2 + 1]
                     energy += (real * real + imag * imag).toFloat()
                 }
             }
             
-            energies[bandIndex] = energy
+            energies[i] = energy
         }
         
         return energies

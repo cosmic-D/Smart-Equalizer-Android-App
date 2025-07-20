@@ -236,6 +236,62 @@ Using 'toShort(): Short' is an error. Unclear conversion. To achieve the same re
    - `MainActivity.kt`: Lines 115, 143, 238
    - `AudioProcessingService.kt`: Line 188
 
+### **10. Compilation Errors**
+
+**Common Error Messages:**
+```
+Unresolved reference: setCenterFreq
+'name' hides member of supertype 'Enum' and needs 'override' modifier
+Const 'val' initializer should be a constant value
+Unresolved reference: CHANNEL_IN_MONO
+Expecting a name / Expecting ')' / Expecting 'in'
+```
+
+**Solutions:**
+
+1. **Unresolved reference: setCenterFreq**
+   ```kotlin
+   // ❌ Wrong - Method doesn't exist
+   equalizer?.setCenterFreq(band, freq)
+   
+   // ✅ Correct - Use setBandLevel instead
+   equalizer?.setBandLevel(band, level)
+   ```
+
+2. **Enum name conflict**
+   ```kotlin
+   // ❌ Wrong - Conflicts with enum's built-in name
+   enum class MyEnum(val name: String)
+   
+   // ✅ Correct - Use different property name
+   enum class MyEnum(val displayName: String)
+   ```
+
+3. **Const val initializer error**
+   ```kotlin
+   // ❌ Wrong - Runtime calculation can't be const
+   private const val BUFFER_SIZE = AudioRecord.getMinBufferSize(...)
+   
+   // ✅ Correct - Use val for runtime calculations
+   private val BUFFER_SIZE = AudioRecord.getMinBufferSize(...)
+   ```
+
+4. **Destructuring assignment syntax**
+   ```kotlin
+   // ❌ Wrong - Complex destructuring in for loop
+   for ((bandIndex, (lowFreq, highFreq)) in list.withIndex())
+   
+   // ✅ Correct - Simple iteration with destructuring
+   for (i in list.indices) {
+       val (lowFreq, highFreq) = list[i]
+   }
+   ```
+
+5. **Quick Fix**: Run the provided fix script:
+   ```cmd
+   fix-compilation-errors.bat
+   ```
+
 ## 🔧 Advanced Troubleshooting
 
 ### **Reset Android Studio Settings**
