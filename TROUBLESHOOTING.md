@@ -368,6 +368,73 @@ in your theme to use a Toolbar instead.
    - `app/src/main/res/values-night/themes.xml` (if exists)
    - Any Activity using `setSupportActionBar()`
 
+### **13. Equalizer Parameter Error**
+
+**Error Message:**
+```
+AudioEffect: bad parameter value
+at android.media.audiofx.Equalizer.setBandLevel(Equalizer.java:222)
+```
+
+**Solution:**
+1. **Add proper equalizer initialization**:
+   ```kotlin
+   private fun setupEqualizer() {
+       try {
+           equalizer = Equalizer(0, 0)
+           equalizer?.enabled = true
+           
+           if (equalizer?.hasControl() == true) {
+               val numberOfBands = equalizer?.numberOfBands ?: 9
+               val minLevel = equalizer?.bandLevelRange?.get(0) ?: -1500
+               val maxLevel = equalizer?.bandLevelRange?.get(1) ?: 1500
+               
+               // Set initial levels safely
+               for (i in 0 until numberOfBands) {
+                   try {
+                       equalizer?.setBandLevel(i.toShort(), 0)
+                   } catch (e: Exception) {
+                       e.printStackTrace()
+                   }
+               }
+           }
+       } catch (e: Exception) {
+           // Handle initialization error
+       }
+   }
+   ```
+
+2. **Add range validation**:
+   ```kotlin
+   // Convert dB to millibels and clamp to valid range
+   val levelInMillibels = (level * 100).toInt().coerceIn(minLevel, maxLevel)
+   equalizer?.setBandLevel(band.toShort(), levelInMillibels.toShort())
+   ```
+
+3. **Add error handling**:
+   ```kotlin
+   try {
+       equalizer?.setBandLevel(band, level)
+   } catch (e: Exception) {
+       e.printStackTrace() // Log but don't crash
+   }
+   ```
+
+4. **Why this happens**:
+   - Equalizer not properly initialized
+   - Band levels out of valid range (-1500 to +1500 millibels)
+   - Invalid band indices
+   - Missing parameter validation
+
+5. **Quick Fix**: Run the provided fix script:
+   ```cmd
+   fix-equalizer-errors.bat
+   ```
+
+6. **Files typically affected**:
+   - `MainActivity.kt` - Equalizer setup and usage
+   - `AudioProcessingService.kt` - Service equalizer usage
+
 ## 🔧 Advanced Troubleshooting
 
 ### **Reset Android Studio Settings**
