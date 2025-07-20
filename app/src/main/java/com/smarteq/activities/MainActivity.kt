@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
             equalizer?.setBandLevel(i.toInt().toShort(), (level * 100).toInt().toShort())
         }
         
-        Snackbar.make(binding.root, "Preset applied: ${preset.name}", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, "Preset applied: ${preset.displayName}", Snackbar.LENGTH_SHORT).show()
     }
     
     private fun updateAudioDetectionUI(audioType: AudioType) {
@@ -234,9 +234,10 @@ class MainActivity : AppCompatActivity() {
             equalizer = Equalizer(0, 0)
             equalizer?.enabled = true
             
-            // Set frequency bands
+            // Set frequency bands - Android Equalizer automatically sets center frequencies
+            // We only need to set the band levels
             for (i in 0 until EQUALIZER_BANDS) {
-                equalizer?.setCenterFreq(i.toInt().toShort(), FREQUENCIES[i].toInt().toShort())
+                equalizer?.setBandLevel(i.toInt().toShort(), 0) // Set to 0dB initially
             }
             
         } catch (e: Exception) {

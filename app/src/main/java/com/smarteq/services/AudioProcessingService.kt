@@ -36,7 +36,7 @@ class AudioProcessingService : Service() {
         private const val NOTIFICATION_ID = 1
         private const val CHANNEL_ID = "smart_equalizer_service"
         private const val SAMPLE_RATE = 16000
-        private const val BUFFER_SIZE = AudioRecord.getMinBufferSize(
+        private val BUFFER_SIZE = AudioRecord.getMinBufferSize(
             SAMPLE_RATE,
             AudioRecord.CHANNEL_IN_MONO,
             AudioRecord.ENCODING_PCM_16BIT
