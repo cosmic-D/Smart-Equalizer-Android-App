@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <group android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:translateX="21.6"
+        android:translateY="21.6">
+        
+        <!-- Equalizer bars -->
+        <path
+            android:fillColor="@color/on_primary"
+            android:pathData="M20,60 L20,80 L25,80 L25,60 Z"/>
+        
+        <path
+            android:fillColor="@color/on_primary"
+            android:pathData="M30,50 L30,80 L35,80 L35,50 Z"/>
+        
+        <path
+            android:fillColor="@color/on_primary"
+            android:pathData="M40,40 L40,80 L45,80 L45,40 Z"/>
+        
+        <path
+            android:fillColor="@color/on_primary"
+            android:pathData="M50,30 L50,80 L55,80 L55,30 Z"/>
+        
+        <path
+            android:fillColor="@color/on_primary"
+            android:pathData="M60,20 L60,80 L65,80 L65,20 Z"/>
+        
+        <path
+            android:fillColor="@color/on_primary"
+            android:pathData="M70,35 L70,80 L75,80 L75,35 Z"/>
+        
+        <path
+            android:fillColor="@color/on_primary"
+            android:pathData="M80,45 L80,80 L85,80 L85,45 Z"/>
+        
+        <path
+            android:fillColor="@color/on_primary"
+            android:pathData="M90,55 L90,80 L95,80 L95,55 Z"/>
+        
+        <path
+            android:fillColor="@color/on_primary"
+            android:pathData="M100,65 L100,80 L105,80 L105,65 Z"/>
+        
+        <!-- Base line -->
+        <path
+            android:strokeColor="@color/on_primary"
+            android:strokeWidth="2"
+            android:pathData="M15,80 L110,80"/>
+        
+    </group>
+</vector> 

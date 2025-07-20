@@ -134,6 +134,40 @@ No target device found
 4. Connect device via USB
 5. Allow USB debugging when prompted on device
 
+### **7. Missing App Icons**
+
+**Error Message:**
+```
+AAPT: error: resource mipmap/ic_launcher not found
+```
+
+**Solution:**
+1. **Quick Fix**: Run the provided fix script:
+   ```cmd
+   fix-app-icons.bat
+   ```
+
+2. **Manual Fix**: Create icon directories and files:
+   ```cmd
+   mkdir app\src\main\res\mipmap-hdpi
+   mkdir app\src\main\res\mipmap-mdpi
+   mkdir app\src\main\res\mipmap-xhdpi
+   mkdir app\src\main\res\mipmap-xxhdpi
+   mkdir app\src\main\res\mipmap-xxxhdpi
+   mkdir app\src\main\res\drawable
+   ```
+
+3. **Use Android Studio Icon Generator**:
+   - Right-click on `app/src/main/res`
+   - Select **New → Image Asset**
+   - Choose **Launcher Icons (Adaptive and Legacy)**
+   - Customize and generate icons
+
+4. **Clean and Rebuild**:
+   - **Build → Clean Project**
+   - **Build → Rebuild Project**
+   - **File → Invalidate Caches and Restart**
+
 ## 🔧 Advanced Troubleshooting
 
 ### **Reset Android Studio Settings**
