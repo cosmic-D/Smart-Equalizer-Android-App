@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                         if (fromUser) {
                             val band = i
                             val level = (progress - 750) / 100f // Convert to dB
-                            equalizer?.setBandLevel(band.toShort(), (level * 100).toShort())
+                            equalizer?.setBandLevel(band.toInt().toShort(), (level * 100).toInt().toShort())
                             viewModel.updateCustomPreset(band, level)
                         }
                     }
@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity() {
             val level = levels[i]
             val progress = ((level + 15) * 50).toInt() // Convert dB to progress
             seekBars[i].progress = progress.coerceIn(0, 1500)
-            equalizer?.setBandLevel(i.toShort(), (level * 100).toShort())
+            equalizer?.setBandLevel(i.toInt().toShort(), (level * 100).toInt().toShort())
         }
         
         Snackbar.make(binding.root, "Preset applied: ${preset.name}", Snackbar.LENGTH_SHORT).show()
@@ -236,7 +236,7 @@ class MainActivity : AppCompatActivity() {
             
             // Set frequency bands
             for (i in 0 until EQUALIZER_BANDS) {
-                equalizer?.setCenterFreq(i.toShort(), FREQUENCIES[i].toShort())
+                equalizer?.setCenterFreq(i.toInt().toShort(), FREQUENCIES[i].toInt().toShort())
             }
             
         } catch (e: Exception) {

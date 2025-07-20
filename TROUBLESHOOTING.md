@@ -199,6 +199,43 @@ AAPT: error: resource mipmap/ic_launcher not found
    - Choose **Launcher Icons (Legacy Only)**
    - This generates compatible icons for older Android versions
 
+### **9. Kotlin Type Conversion Errors**
+
+**Error Message:**
+```
+Using 'toShort(): Short' is an error. Unclear conversion. To achieve the same result convert to Int explicitly and then to Short.
+```
+
+**Solution:**
+1. **Quick Fix**: Run the provided fix script:
+   ```cmd
+   fix-kotlin-conversions.bat
+   ```
+
+2. **Manual Fix**: Replace direct conversions with explicit conversions:
+   ```kotlin
+   // ❌ Wrong - Unclear conversion
+   value.toShort()
+   
+   // ✅ Correct - Explicit conversion
+   value.toInt().toShort()
+   ```
+
+3. **Common Conversion Patterns to Fix**:
+   - `i.toShort()` → `i.toInt().toShort()`
+   - `(level * 100).toShort()` → `(level * 100).toInt().toShort()`
+   - `FREQUENCIES[i].toShort()` → `FREQUENCIES[i].toInt().toShort()`
+
+4. **Best Practices**:
+   - Always use explicit conversions for numeric types
+   - Check for null before casting: `value?.let { it.toInt() }`
+   - Use safe casting: `value as? Type`
+   - Avoid force unwrapping: `value!!`
+
+5. **Files Fixed**:
+   - `MainActivity.kt`: Lines 115, 143, 238
+   - `AudioProcessingService.kt`: Line 188
+
 ## 🔧 Advanced Troubleshooting
 
 ### **Reset Android Studio Settings**
