@@ -168,6 +168,37 @@ AAPT: error: resource mipmap/ic_launcher not found
    - **Build → Rebuild Project**
    - **File → Invalidate Caches and Restart**
 
+### **8. Adaptive Icon API Level Error**
+
+**Error Message:**
+```
+<adaptive-icon> elements require a sdk version of at least 26
+```
+
+**Solution:**
+1. **Quick Fix**: Run the provided fix script:
+   ```cmd
+   update-icons.bat
+   ```
+
+2. **Manual Fix**: Replace adaptive icons with traditional vector icons:
+   - Replace `<adaptive-icon>` with `<vector>` in all icon files
+   - Use traditional vector drawable format
+   - Ensure compatibility with API 21+
+
+3. **Alternative**: Increase minimum SDK to 26:
+   ```gradle
+   defaultConfig {
+       minSdk 26  // Instead of 21
+   }
+   ```
+
+4. **Use Android Studio Icon Generator**:
+   - Right-click on `app/src/main/res`
+   - Select **New → Image Asset**
+   - Choose **Launcher Icons (Legacy Only)**
+   - This generates compatible icons for older Android versions
+
 ## 🔧 Advanced Troubleshooting
 
 ### **Reset Android Studio Settings**
